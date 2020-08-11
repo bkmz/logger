@@ -36,6 +36,22 @@ func NewConsole(isDebug bool) *Logger {
 	return &Logger{logger: &logger}
 }
 
+func (l *Logger) LogFuncInfo(f string, args ...interface{}) {
+	if args != nil {
+		l.logger.Info().Msgf(f, args)
+	} else {
+		l.logger.Info().Msg(f)
+	}
+}
+
+func (l *Logger) LogFuncError(f string, args ...interface{}) {
+	if args != nil {
+		l.logger.Error().Msgf(f, args)
+	} else {
+		l.logger.Error().Msg(f)
+	}
+}
+
 // Output duplicates the global logger and sets w as its output.
 func (l *Logger) Output(w io.Writer) zerolog.Logger {
 	return l.logger.Output(w)
